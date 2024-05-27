@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User Data</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            color: #212529;
+        }
+
+        .content {
+            background-color: #072E33;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: x-large;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: large;
+        }
+
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover, .navbar span:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            font-size: 16px;
+            border-top: 5px solid #007bff;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .btn-submit {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #2c7ab2;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <img src="/static/logo.png" width="60" height="60" alt="TechNova Logo">
+    <div>
+        <a href="/" class="btn-custom"><i class="fas fa-home"></i> Home</a>
+        <a href="/create-user" class="btn-custom"><i class="fas fa-user-plus"></i> Add New Staff</a>
+        <a href="/get-data" class="btn-custom"><i class="fas fa-database"></i> Fetch Data</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="content">Update Employee Data</h1>
+    <form action="/update/{{ user[0] }}" method="post">
+        <div class="mb-3">
+            <label for="full_name">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" value="{{ user[1] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" name="age" value="{{ user[2] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="salary">Salary</label>
+            <input type="text" class="form-control" id="salary" name="salary" value="{{ user[3] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="job">Job</label>
+            <input type="text" class="form-control" id="job" name="job" value="{{ user[4] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user[5] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone_number">Phone Number</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ user[6] }}"
+                   required>
+        </div>
+        <div class="mb-3">
+            <label for="date_of_employment">Date of Employment</label>
+            <input type="date" class="form-control" id="date_of_employment" name="date_of_employment"
+                   value="{{ user[7] }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="worked_time">Worked Time</label>
+            <input type="text" class="form-control" id="worked_time" name="worked_time" value="{{ user[8] }}" required>
+        </div>
+        <!-- Insurance fields -->
+        <div class="mb-3">
+            <label for="insurance">Insurance</label>
+            <select class="form-control" id="insurance" name="insurance" required>
+                <option value="">Select...</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="insurance_payment">Insurance Payment</label>
+            <input type="text" class="form-control" id="insurance_payment" name="insurance_payment"
+                   value="{{ user[10] }}" required>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Save</button>
+    </form>
+</div>
+<div class="footer">
+    © 2024 TechNova - All Rights Reserved
+</div>
+</body>
+</html>

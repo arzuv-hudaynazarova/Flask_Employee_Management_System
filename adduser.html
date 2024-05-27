@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Add New User - TechNova User Management</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            color: #212529;
+        }
+        .content {
+            background-color: #072E33;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: x-large;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: large;
+        }
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+        .navbar a:hover, .navbar span:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 960px;
+            margin: 50px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="number"], input[type="date"], textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .input-group-text {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 0;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            font-size: 16px;
+            border-top: 5px solid #007bff;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <img src="/static/logo.png" width="60" height="60" alt="TechNova Logo">
+    <div>
+        <a href="/" class="btn-custom"><i class="fas fa-home"></i> Home</a>
+        <a href="/create-user" class="btn-custom"><i class="fas fa-user-plus"></i> Add New Staff</a>
+        <a href="/get-data" class="btn-custom"><i class="fas fa-database"></i> Fetch Data</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="content">Add New Employee</h1>
+    <form action="/submit" method="post">
+        <div class="mb-3">
+            <label for="full_name" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="full_name" name="full_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input type="number" class="form-control" id="age" name="age" required>
+        </div>
+        <div class="mb-3">
+            <label for="salary" class="form-label">Salary</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="salary" name="salary" required>
+                <div class="input-group-append">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="job" class="form-label">Job</label>
+            <input type="text" class="form-control" id="job" name="job" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="mb-3">
+            <label for="date_of_employment" class="form-label">Date of Employment</label>
+            <input type="date" class="form-control" id="date_of_employment" name="date_of_employment" required>
+        </div>
+        <div class="mb-3">
+            <label for="worked_time" class="form-label">Worked Time</label>
+            <input type="text" class="form-control" placeholder="....years or months" id="worked_time" name="worked_time" required>
+        </div>
+         <div class="mb-3">
+            <label for="insurance">Insurance</label>
+            <select class="form-control" id="insurance" name="insurance" required>
+                <option value="">Select...</option>
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="insurance_payment" class="form-label">Insurance Payment</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="insurance_payment" name="insurance_payment">
+                <div class="input-group-append">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+    </form>
+</div>
+
+<div class="footer">
+    © 2024 TechNova - All Rights Reserved
+</div>
+</body>
+</html>

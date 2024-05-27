@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch Data by ID - TechNova User Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .content {
+            background-color: #343a40;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: x-large;
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+
+        .navbar a:hover, .navbar span:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #0056b3;
+            color: #e64545;
+        }
+
+        .btn-action {
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            margin: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-update {
+            background-color: #28a745;
+        }
+
+        .btn-update:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            font-size: 16px;
+            border-top: 5px solid #007bff;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Add Bootstrap JavaScript and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div class="navbar">
+    <img src="/static/logo.png" width="60" height="60" alt="TechNova Logo">
+    <div class="search_area">
+        <form action="/get-data" method="post" class="form-inline">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Enter Full Name..." id="input_full_name"
+                       name="input_full_name" required>
+                <button class="btn btn-custom" type="submit"><i class="fas fa-search"></i> Search</button>
+
+            </div>
+        </form>
+
+    </div>
+    <div>
+        <a href="/" class="btn-custom"><i class="fas fa-home"></i> Home</a>
+        <a href="/create-user" class="btn-custom"><i class="fas fa-user-plus"></i> Add New Staff</a>
+        <a href="/get-data" class="btn-custom"><i class="fas fa-database"></i> Fetch Data</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="content">All Employee Data</h1>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Salary</th>
+                <th>Job</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Date of Employment</th>
+                <th>Worked Time</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if data %}
+                {% for row in data %}
+                    <tr>
+                        <td>{{ row['id'] }}</td>
+                        <td>{{ row['full_name'] }}</td>
+                        <td>{{ row['age'] }}</td>
+                        <td>${{ row['salary'] }}</td>
+                        <td>{{ row['job'] }}</td>
+                        <td>{{ row['email'] }}</td>
+                        <td>{{ row['phone_number'] }}</td>
+                        <td>{{ row['date_of_employment'] }}</td>
+                        <td>{{ row['worked_time'] }}</td>
+                        <td class="text-center">
+                            <a href="{{ url_for('update_user', id=row['id']) }}" class="btn btn-action btn-update"><i
+                                    class="fas fa-edit"></i></a>
+                            <button class="btn btn-action btn-delete" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal" onclick="setDeleteId('{{ row['id'] }}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="10">No data available</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Bootstrap Modal for Confirming Deletion -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this data?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteId = 0;
+
+    function setDeleteId(id) {
+        deleteId = id;  // This captures the id to be used in form submission
+    }
+
+    function confirmDelete() {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/delete/${deleteId}`;  // Make sure this route is defined in your Flask app
+
+        // CSRF token might be needed here if CSRF protection is enabled
+        {% if csrf_token %}
+            var csrf = document.createElement('input');
+            csrf.type = 'hidden';
+            csrf.name = 'csrf_token';
+            csrf.value = '{{ csrf_token() }}';
+            form.appendChild(csrf);
+        {% endif %}
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+
+</body>
+</html>

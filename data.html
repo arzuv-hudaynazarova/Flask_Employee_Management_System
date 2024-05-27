@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetched Data - TechNova User Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            color: #212529;
+        }
+
+        .content {
+            background-color: #072E33;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: x-large;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            font-size: large;
+        }
+
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+        }
+
+        .navbar a:hover, .navbar span:hover {
+            background-color: #0056b3;
+        }
+
+        .navbar img {
+            height: 40px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #ffffff;
+            color: #e85050;
+            text-align: center;
+        }
+
+        .btn {
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            margin-top: 4px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: auto;
+            margin: 2px;
+        }
+
+        .btn-update {
+            background-color: #28a745;
+        }
+
+        .btn-update:hover {
+            background-color: #218838;
+        }
+
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+        }
+
+        .date-actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            font-size: 16px;
+            border-top: 5px solid #007bff;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <img src="/static/logo.png" width="60" height="60" alt="TechNova Logo">
+    <div>
+        <a href="/" class="btn-custom"><i class="fas fa-home"></i> Home</a>
+        <a href="/create-user" class="btn-custom"><i class="fas fa-user-plus"></i> Add New Staff</a>
+        <a href="/get-data" class="btn-custom"><i class="fas fa-database"></i> Fetch Data</a>
+    </div>
+</div>
+
+<div class="container">
+    <h1 class="content">All Users Data</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Salary</th>
+                <th>Job</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Date of Employment</th>
+                <th>Worked Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}$</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td>{{ row[7] }}</td>
+                    <td>{{ row[8] }}</td>
+                    <td class="date-actions">
+                        <a href="{{ url_for('update_user', id=row[0]) }}" class="btn btn-action btn-update"><i class="fas fa-edit"></i></a>
+                        <button class="btn btn-action btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="setDeleteId('{{ row[0] }}')"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<div class="date-actions">
+        <a href="/get-data" class="btn btn-custom"><i class="fas fa-arrow-left"></i> Go Back to Data</a>
+    </div>
+</div>
+
+
+<!-- Bootstrap Modal for Confirming Deletion -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this data?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var deleteId = 0;
+
+    function setDeleteId(id) {
+        deleteId = id;
+    }
+
+    function confirmDelete() {
+        // Create a form programmatically
+        var form = document.createElement('form');
+        form.action = `/delete/${deleteId}`;
+        form.method = 'POST';
+
+        // CSRF token might be needed here if CSRF protection is enabled
+        {% if csrf_token %}
+        var csrf = document.createElement('input');
+        csrf.type = 'hidden';
+        csrf.name = 'csrf_token';
+        csrf.value = '{{ csrf_token() }}';
+        form.appendChild(csrf);
+        {% endif %}
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+
+
+<!-- Add Bootstrap JavaScript and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+</html>

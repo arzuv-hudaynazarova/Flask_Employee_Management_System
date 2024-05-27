@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Data - TechNova User Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a, .navbar span {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 16px;
+        }
+        .navbar a:hover, .navbar span:hover {
+            background-color: #0056b3;
+        }
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .confirm-delete-btn {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            margin-top: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .confirm-delete-btn:hover {
+            background-color: #c82333;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            background-color: #343a40;
+            color: #f8f9fa;
+            font-size: 16px;
+            border-top: 5px solid #007bff;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <img src="/static/logo.png" width="60" height="60" alt="TechNova Logo">
+    <div>
+        <a href="/" class="btn-custom"><i class="fas fa-home"></i> Home</a>
+        <a href="/create-user" class="btn-custom"><i class="fas fa-user-plus"></i> Add New Staff</a>
+        <a href="/get-data" class="btn-custom"><i class="fas fa-database"></i> Fetch Data</a>
+    </div>
+</div>
+<div class="container">
+    <h1>Are you want to delete the following data?</h1>
+    <p><strong>ID:</strong> {{ id }} <br><strong>Full Name:</strong> {{ full_name }}</p>
+    <form action="/delete/{{ id }}" method="post">
+        <button type="submit" class="confirm-delete-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+    </form>
+</div>
+<div class="footer">
+    © 2024 TechNova - All Rights Reserved
+</div>
+</body>
+</html>

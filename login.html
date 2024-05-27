@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Admin</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #E6F5F3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-container {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 50px;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container .left {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .login-container .left img {
+            max-width: 100%;
+            border-radius: 15px;
+        }
+        .login-container .right {
+            flex: 1;
+            padding: 20px;
+        }
+        .login-container .right h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333333;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #E6F5F3;
+            color: #333333;
+            font-size: 16px;
+        }
+        .login-container input[type="text"]::placeholder,
+        .login-container input[type="password"]::placeholder {
+            color: #999999;
+        }
+        .login-container button {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        .login-container button:hover {
+            background-color: #e55d50;
+        }
+        .login-container button i {
+            margin-right: 15px;
+        }
+        .login-container a {
+            color: #FF6F61;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="left">
+            <img src="/static/image.jpg" alt="Login Illustration">
+        </div>
+        <div class="right">
+            <h1>Welcome Admin</h1>
+            <form action="/login" method="post">
+                <label>
+                    <input type="text" name="username" placeholder="Username" required>
+                </label>
+                <label>
+                    <input type="password" name="password" placeholder="Password" required>
+                </label>
+                <button type="submit"><i class="fas fa-key"></i>&nbsp;&nbsp;Sign in</button>
+            </form>
+            <a href="#">Forgot Password or Username?</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>
